@@ -3,15 +3,14 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "Shaders.h"
 #include <vector>
 #include <array>
+#include "Shader.h"
 
-p3d::Triangle::Triangle(float v[9], GLuint shaderProgram, std::vector<GLfloat> color) {
+p3d::Triangle::Triangle(float v[9], std::vector<GLfloat> color) {
 
 	float vertices[9];
 	this->color = color;
-	this->shaderProgram = shaderProgram;
 
 	for (int i = 0; i < 9; i++) { vertices[i] = v[i]; }
 
@@ -45,11 +44,6 @@ p3d::Triangle::Triangle(float v[9], GLuint shaderProgram, std::vector<GLfloat> c
 }
 
 void p3d::Triangle::render() {
-	glUseProgram(this->shaderProgram);
-	int vertexColorLocation = glGetUniformLocation(shaderProgram, "Color");
-	glUniform4f(vertexColorLocation, color[0], color[1], color[2], color[3]);
-
 	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 }

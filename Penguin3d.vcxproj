@@ -24,14 +24,18 @@
     <ClCompile Include="glad.cpp" />
     <ClCompile Include="inputHandler.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Shaders.cpp" />
+    <ClCompile Include="Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Draw.h" />
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="inputHandler.h" />
     <ClInclude Include="Main.h" />
-    <ClInclude Include="Shaders.h" />
+    <ClInclude Include="Shader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fragment_shader.glsl" />
+    <None Include="vertex_shader.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

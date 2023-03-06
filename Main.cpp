@@ -5,7 +5,7 @@
 #include "inputHandler.h"
 #include "Exceptions.h"
 #include "Draw.h"
-#include "Shaders.h"
+#include "Shader.h"
 #include <vector>
 #include <array>
 
@@ -13,6 +13,8 @@ using namespace p3d;
 
 p3d::Triangle* triangle;
 p3d::Triangle* triangle2;
+
+Shader* shader;
 
 void p3d::framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -27,26 +29,26 @@ void p3d::renderBackground(float* rgba)
 }
 
 int main() {
-    p3d::init();
-
+    
     GLFWwindow* window = p3d::init();
-
-    Shader* shader = new Shader();
-
+    
     std::vector<GLfloat> yellow = { 1.0f, 1.0f, 0.2f, 1.0f };
     std::vector<GLfloat> red = { 1.0f, 0.1f, 0.1f, 1.0f };
+
+    Shader s("vertex_shader.glsl", "fragment_shader.glsl"); // you can name your shader files however you like
+    shader = &s;
 
     triangle = new p3d::Triangle(new float[9] {
         -0.9f, -0.5f, 0.0f,  // left 
             -0.0f, -0.5f, 0.0f,  // right
             -0.45f, 0.5f, 0.0f,  // top 
-        }, shader->getShaderProgram(), yellow);
+        }, yellow);
 
     triangle2 = new p3d::Triangle(new float[9] {
         0.0f, -0.5f, 0.0f,  // left
             0.9f, -0.5f, 0.0f,  // right
             0.45f, 0.5f, 0.0f   // top 
-        }, shader->getShaderProgram(), red);
+        }, red);
 
     p3d::render(window);
 
@@ -66,6 +68,7 @@ void p3d::render(GLFWwindow* window) {
 
         // rendering events
         p3d::renderBackground(rgba_ptr);
+        shader->use();
         triangle->render();
         triangle2->render();
 
