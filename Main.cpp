@@ -6,10 +6,13 @@
 #include "Exceptions.h"
 #include "Draw.h"
 #include "Shaders.h"
+#include <vector>
+#include <array>
 
 using namespace p3d;
 
-p3d::Polygon *triangle;
+p3d::Triangle* triangle;
+p3d::Triangle* triangle2;
 
 void p3d::framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -25,6 +28,30 @@ void p3d::renderBackground(float* rgba)
 
 int main() {
     p3d::init();
+
+    GLFWwindow* window = p3d::init();
+
+    Shader* shader = new Shader();
+
+    std::vector<GLfloat> yellow = { 1.0f, 1.0f, 0.2f, 1.0f };
+    std::vector<GLfloat> red = { 1.0f, 0.1f, 0.1f, 1.0f };
+
+    triangle = new p3d::Triangle(new float[9] {
+        -0.9f, -0.5f, 0.0f,  // left 
+            -0.0f, -0.5f, 0.0f,  // right
+            -0.45f, 0.5f, 0.0f,  // top 
+        }, shader->getShaderProgram(), yellow);
+
+    triangle2 = new p3d::Triangle(new float[9] {
+        0.0f, -0.5f, 0.0f,  // left
+            0.9f, -0.5f, 0.0f,  // right
+            0.45f, 0.5f, 0.0f   // top 
+        }, shader->getShaderProgram(), red);
+
+    p3d::render(window);
+
+    glfwTerminate();
+    return 0;
 }
 
 void p3d::render(GLFWwindow* window) {
@@ -40,6 +67,7 @@ void p3d::render(GLFWwindow* window) {
         // rendering events
         p3d::renderBackground(rgba_ptr);
         triangle->render();
+        triangle2->render();
 
         glfwSwapBuffers(window);
         
@@ -48,19 +76,19 @@ void p3d::render(GLFWwindow* window) {
     }
 }
 
-int p3d::init() {
+GLFWwindow* p3d::init() {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-    GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(1280, 720, "Penguin3D", NULL, NULL);
     if (window == NULL)
     {
         throw p3d::FailedGLFWException();
         glfwTerminate();
-        return -1;
+        return NULL;
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
@@ -68,22 +96,11 @@ int p3d::init() {
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         throw p3d::FailedGLADException();
-        return -1;
+        glfwTerminate();
+        return NULL;
     }
 
-    float vertices[] = {
-        -0.5f, -0.5f, 0.0f, // left  
-         0.5f, -0.5f, 0.0f, // right 
-         0.0f,  0.5f, 0.0f  // top   
-    };
-    triangle = new p3d::Polygon(vertices);
+    glViewport(0, 0, 1280, 720);
 
-    // compile shaders
-    p3d::compileShaders();
-
-    glViewport(0, 0, 800, 600);
-    p3d::render(window);
-
-    glfwTerminate();
-    return 0;
+    return window;
 }

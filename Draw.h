@@ -2,16 +2,15 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <vector>
 
 namespace p3d {
-	class Polygon {
+	class Triangle {
 		private:
-			GLuint VBO;
-			GLuint VAO;
-			
-			float* verts;
+			GLuint VBO, VAO, EBO, shaderProgram;
+			std::vector<float> color;
 		public:
 			void render();
-			Polygon(float* v);
+			Triangle(float v[9], GLuint shaderProgram, std::vector<GLfloat> color);
 	};
 }

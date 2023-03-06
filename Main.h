@@ -4,7 +4,7 @@
 #include <iostream>
 
 namespace p3d {
-	int init();
+	GLFWwindow* init();
 	void render(GLFWwindow* window);
 	void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 	void renderBackground(float* rgba);
