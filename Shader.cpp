@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <vector>
 
 using namespace p3d;
 
@@ -79,6 +80,12 @@ void p3d::Shader::setInt(const std::string& name, int value) const
 void p3d::Shader::setFloat(const std::string& name, float value) const
 {
     glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
+}
+
+
+void p3d::Shader::setVec3(const std::string& name, float value[3]) const
+{
+    glUniform4f(glGetUniformLocation(ID, name.c_str()), value[0], value[1], value[2], 1.0f);
 }
 
 void p3d::Shader::checkCompileErrors(unsigned int shader, std::string type)

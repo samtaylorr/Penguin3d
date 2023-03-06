@@ -12,9 +12,9 @@
 using namespace p3d;
 
 p3d::Triangle* triangle;
-p3d::Triangle* triangle2;
 
 Shader* shader;
+
 
 void p3d::framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -28,27 +28,24 @@ void p3d::renderBackground(float* rgba)
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
+// settings
+const unsigned int SCR_WIDTH = 800;
+const unsigned int SCR_HEIGHT = 600;
+
 int main() {
     
     GLFWwindow* window = p3d::init();
-    
-    std::vector<GLfloat> yellow = { 1.0f, 1.0f, 0.2f, 1.0f };
-    std::vector<GLfloat> red = { 1.0f, 0.1f, 0.1f, 1.0f };
 
     Shader s("vertex_shader.glsl", "fragment_shader.glsl"); // you can name your shader files however you like
     shader = &s;
+    float v3[3]  = {0.5f, 0.2f, 0.5f};
 
-    triangle = new p3d::Triangle(new float[9] {
-        -0.9f, -0.5f, 0.0f,  // left 
-            -0.0f, -0.5f, 0.0f,  // right
-            -0.45f, 0.5f, 0.0f,  // top 
-        }, yellow);
-
-    triangle2 = new p3d::Triangle(new float[9] {
-        0.0f, -0.5f, 0.0f,  // left
-            0.9f, -0.5f, 0.0f,  // right
-            0.45f, 0.5f, 0.0f   // top 
-        }, red);
+    triangle = new p3d::Triangle(new float[18] {
+        // positions                    //colors
+         0.5f, -0.5f, 0.0f,             1.0f, 0.0f, 0.0f,     // left
+        -0.5f, -0.5f, 0.0f,             0.0f, 1.0f, 0.0f,     // right
+         0.0f,  0.5f, 0.0f,             0.0f, 0.0f, 1.0f      // top 
+    });
 
     p3d::render(window);
 
@@ -70,7 +67,6 @@ void p3d::render(GLFWwindow* window) {
         p3d::renderBackground(rgba_ptr);
         shader->use();
         triangle->render();
-        triangle2->render();
 
         glfwSwapBuffers(window);
         
@@ -86,7 +82,7 @@ GLFWwindow* p3d::init() {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-    GLFWwindow* window = glfwCreateWindow(1280, 720, "Penguin3D", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Penguin3D", NULL, NULL);
     if (window == NULL)
     {
         throw p3d::FailedGLFWException();
@@ -103,7 +99,7 @@ GLFWwindow* p3d::init() {
         return NULL;
     }
 
-    glViewport(0, 0, 1280, 720);
+    glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 
     return window;
 }

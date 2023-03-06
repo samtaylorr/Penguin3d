@@ -12,6 +12,6 @@ namespace p3d {
 			std::vector<float> color;
 		public:
 			void render();
-			Triangle(float v[9], std::vector<GLfloat> color);
+			Triangle(float v[18]);
 	};
 }
