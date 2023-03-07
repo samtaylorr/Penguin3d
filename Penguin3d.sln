@@ -5,6 +5,14 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Penguin3d", "Penguin3d.vcxproj", "{0CCBC3E2-4AB1-4205-945D-FBA2A360D649}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AB355354-76F0-4684-8F5B-0C4951513405}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "textures", "textures", "{CA08930C-3577-4713-B40C-6CD23EB1CAE0}"
+	ProjectSection(SolutionItems) = preProject
+		textures\penguin3d_graffiti.png = textures\penguin3d_graffiti.png
+		textures\wall.jpg = textures\wall.jpg
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -24,6 +32,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CA08930C-3577-4713-B40C-6CD23EB1CAE0} = {AB355354-76F0-4684-8F5B-0C4951513405}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D15A02AF-B4D9-41C1-B1E8-484EC1076FC3}

@@ -6,12 +6,13 @@
 #include "Shader.h"
 
 namespace p3d {
-	class Triangle {
+	class Polygon {
 		private:
-			GLuint VBO, VAO, EBO;
+			GLuint VBO, VAO, EBO, texture1, texture2;
+			void Texture(std::string path, GLuint *textureVar, bool flipVertical, bool alpha);
 			std::vector<float> color;
 		public:
-			void render();
-			Triangle(float v[18]);
+			void render(Shader shader);
+			Polygon(std::vector<float> v, std::vector<GLuint> i, Shader shader, std::string filePath);
 	};
 }

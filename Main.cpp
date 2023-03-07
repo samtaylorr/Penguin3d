@@ -11,10 +11,44 @@
 
 using namespace p3d;
 
-p3d::Triangle* triangle;
+p3d::Polygon* triangle;
 
 Shader* shader;
 
+// settings
+const unsigned int SCR_WIDTH = 800;
+const unsigned int SCR_HEIGHT = 600;
+
+int main() {
+    GLFWwindow* window = p3d::init();
+     // you can name your shader files however you like
+    shader = new Shader("vertex_shader.glsl", "fragment_shader.glsl");
+
+    std::vector<float>* vertices = new std::vector<float>{
+         // positions           // colors             // tex_coordinates
+         0.9f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f,     0.0f, 1.0f,          // bottom right
+        -0.9f, -0.5f, 0.0f,     0.0f, 1.0f, 0.0f,     0.0f, 0.0f,          // bottom left
+        -0.9f,  0.5f, 0.0f,     0.0f, 0.0f, 1.0f,     1.0f, 0.0f,          // top left
+         0.9f,  0.5f, 0.0f,     0.0f, 1.0f, 1.0f,     1.0f, 1.0f           // top right
+    };
+
+    std::vector<GLuint>* indices = new std::vector<GLuint>{
+        2, 3, 0,
+        0, 1, 2,
+    };
+
+    triangle = new p3d::Polygon(*vertices, *indices, *shader, "./textures/wall.jpg");
+
+    p3d::render(window);
+
+    delete triangle;
+    delete vertices;
+    delete indices;
+
+    glfwTerminate();
+    delete shader;
+    return 0;
+}
 
 void p3d::framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -26,31 +60,6 @@ void p3d::renderBackground(float* rgba)
 {
     glClearColor(rgba[0], rgba[1], rgba[2], rgba[3]);
     glClear(GL_COLOR_BUFFER_BIT);
-}
-
-// settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
-
-int main() {
-    
-    GLFWwindow* window = p3d::init();
-
-    Shader s("vertex_shader.glsl", "fragment_shader.glsl"); // you can name your shader files however you like
-    shader = &s;
-    float v3[3]  = {0.5f, 0.2f, 0.5f};
-
-    triangle = new p3d::Triangle(new float[18] {
-        // positions                    //colors
-         0.5f, -0.5f, 0.0f,             1.0f, 0.0f, 0.0f,     // left
-        -0.5f, -0.5f, 0.0f,             0.0f, 1.0f, 0.0f,     // right
-         0.0f,  0.5f, 0.0f,             0.0f, 0.0f, 1.0f      // top 
-    });
-
-    p3d::render(window);
-
-    glfwTerminate();
-    return 0;
 }
 
 void p3d::render(GLFWwindow* window) {
@@ -65,8 +74,7 @@ void p3d::render(GLFWwindow* window) {
 
         // rendering events
         p3d::renderBackground(rgba_ptr);
-        shader->use();
-        triangle->render();
+        triangle->render(*shader);
 
         glfwSwapBuffers(window);
         
