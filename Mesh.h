@@ -14,7 +14,7 @@ namespace p3d {
 			Shader* shader;
 		public:
 			void render();
-			Mesh(std::vector<float> v, std::vector<GLuint> i, Shader shader, std::string filePath);
+			Mesh(std::vector<float> v, std::vector<GLuint> i, Shader* shader, std::string filePath);
 			Shader* getShader();
 			void setShader(Shader* shader);
 	};

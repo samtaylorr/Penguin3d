@@ -10,7 +10,7 @@
 
 using namespace p3d;
 
-Mesh::Mesh(std::vector<float> v, std::vector<GLuint> i, Shader shader, std::string filePath) {
+Mesh::Mesh(std::vector<float> v, std::vector<GLuint> i, Shader* shader, std::string filePath) {
 	this->color = color;
 
 	glGenVertexArrays(1, &VAO);
@@ -45,10 +45,10 @@ Mesh::Mesh(std::vector<float> v, std::vector<GLuint> i, Shader shader, std::stri
 
 	// tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
 	// -------------------------------------------------------------------------------------------
-	shader.use(); // don't forget to activate/use the shader before setting uniforms!
+	shader->use(); // don't forget to activate/use the shader before setting uniforms!
 	// either set it manually like so:
-	shader.setInt("texture1", 0);
-	shader.setInt("texture2", 1);
+	shader->setInt("texture1", 0);
+	shader->setInt("texture2", 1);
 }
 
 void Mesh::Texture(std::string path, GLuint *textureVar, bool flipVertical, bool alpha)

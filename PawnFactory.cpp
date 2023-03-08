@@ -8,7 +8,7 @@ using namespace p3d;
 Pawn* p3d::PawnFactory::CreatePawn() {
 	Pawn *pawn = new Pawn();
     Shader* shader = new Shader("vertex_shader.glsl", "fragment_shader.glsl");
-    Transform* transform = new Transform();
+    Transform* transform = new Transform(shader);
 
     std::vector<float>* vertices = new std::vector<float>{
         // positions           // colors             // tex_coordinates
@@ -23,7 +23,9 @@ Pawn* p3d::PawnFactory::CreatePawn() {
         0, 1, 2,
     };
 
-    p3d::Mesh* mesh = new p3d::Mesh(*vertices, *indices, *shader, "./textures/wall.jpg");
+    p3d::Mesh* mesh = new p3d::Mesh(*vertices, *indices, shader, "./textures/wall.jpg");
+    delete vertices;
+    delete indices;
 	pawn->AddMesh(mesh);
     pawn->AddTransform(transform);
 

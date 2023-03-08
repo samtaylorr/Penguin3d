@@ -8,9 +8,6 @@
 #include "Exceptions.h"
 #include "Mesh.h"
 #include "Shader.h"
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 #include "PawnFactory.h"
 
 using namespace p3d;
@@ -51,6 +48,7 @@ void p3d::render(GLFWwindow* window, Pawn* pawn) {
     
     float rgba[] = {0.2f, 0.2f, 0.3f, 1.0f};
     float* rgba_ptr = rgba;
+    Vector3* vector3 = new Vector3(0.5f, -0.5f, 0.0f);
     
     while (!glfwWindowShouldClose(window))
     {
@@ -64,8 +62,9 @@ void p3d::render(GLFWwindow* window, Pawn* pawn) {
         // TODO: Create GetComponent in Pawn
         // GetComponent Mesh
         // Attach shader class to Mesh so that it doesn't have to pass it through
+        pawn->GetTransform()->Translate(vector3);
         pawn->GetMesh()->render();
-
+        
         glfwSwapBuffers(window);
         
         // check and call events and swap the buffers
