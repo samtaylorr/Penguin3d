@@ -1,15 +1,26 @@
 #pragma once
-#include "Component.h"
 #include <vector>
+#include "Mesh.h"
+#include "Transform.h"
+
+struct Components {
+    p3d::Mesh *mesh;
+    p3d::Transform *transform;
+};
 
 namespace p3d {
     class Pawn {
     public:
-        void AddComponent(Component component)
+        Pawn() = default;
+        Components components;
+
+        void AddMesh(Mesh* mesh)
         {
-            components.push_back(component);
+            components.mesh = mesh;
         }
-    private:
-        std::vector<Component> components;
+
+        Mesh* GetMesh() {
+            return components.mesh;
+        }
     };
 }

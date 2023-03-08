@@ -9,6 +9,6 @@ namespace p3d {
 		Shader* shader;
 		Mesh* mesh;
 	public:
-		Pawn CreatePawn();
+		Pawn* CreatePawn();
 	};
 }

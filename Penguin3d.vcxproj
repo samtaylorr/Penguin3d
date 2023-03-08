@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Component.cpp" />
     <ClCompile Include="GenericList.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Exceptions.cpp" />
@@ -30,9 +29,9 @@
     <ClCompile Include="PawnFactory.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="stb_image.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="inputHandler.h" />
@@ -41,6 +40,7 @@
     <ClInclude Include="PawnFactory.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment_shader.glsl" />

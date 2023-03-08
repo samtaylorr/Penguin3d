@@ -8,7 +8,9 @@
 #include "Shader.h"
 #include "stb_image.h"
 
-p3d::Mesh::Mesh(std::vector<float> v, std::vector<GLuint> i, Shader shader, std::string filePath) {
+using namespace p3d;
+
+Mesh::Mesh(std::vector<float> v, std::vector<GLuint> i, Shader shader, std::string filePath) {
 	this->color = color;
 
 	glGenVertexArrays(1, &VAO);
@@ -49,7 +51,7 @@ p3d::Mesh::Mesh(std::vector<float> v, std::vector<GLuint> i, Shader shader, std:
 	shader.setInt("texture2", 1);
 }
 
-void p3d::Mesh::Texture(std::string path, GLuint *textureVar, bool flipVertical, bool alpha)
+void Mesh::Texture(std::string path, GLuint *textureVar, bool flipVertical, bool alpha)
 {
 	int width, height, nrChannels;
 
@@ -88,15 +90,23 @@ void p3d::Mesh::Texture(std::string path, GLuint *textureVar, bool flipVertical,
 	stbi_image_free(data);
 }
 
-void p3d::Mesh::render(Shader shader) {
+void Mesh::render() {
 	// bind textures on corresponding texture units
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture1);
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, texture2);
-	shader.use();
 	// Bind the GL vertex array to our created array
 	glBindVertexArray(VAO);
 	// Draw triangles based on our vertex and element buffer objects
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+}
+
+Shader* Mesh::getShader() {
+	return this->shader;
+}
+
+void p3d::Mesh::setShader(Shader* shader)
+{
+	this->shader = shader;
 }

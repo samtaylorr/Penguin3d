@@ -3,7 +3,7 @@
 #include "Mesh.h"
 using namespace p3d;
 
-Pawn p3d::PawnFactory::CreatePawn() {
+Pawn* p3d::PawnFactory::CreatePawn() {
 	Pawn *pawn = new Pawn();
     Shader* shader = new Shader("vertex_shader.glsl", "fragment_shader.glsl");
 
@@ -21,12 +21,7 @@ Pawn p3d::PawnFactory::CreatePawn() {
     };
 
     p3d::Mesh* mesh = new p3d::Mesh(*vertices, *indices, *shader, "./textures/wall.jpg");
-	pawn->AddComponent(*mesh);
+	pawn->AddMesh(mesh);
 
-    delete mesh;
-    delete vertices;
-    delete indices;
-    delete shader;
-
-	return *pawn;
+	return pawn;
 }

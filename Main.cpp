@@ -8,15 +8,12 @@
 #include "Exceptions.h"
 #include "Mesh.h"
 #include "Shader.h"
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "PawnFactory.h"
 
 using namespace p3d;
-
-p3d::Mesh* triangle;
-
 Shader* shader;
 
 // settings
@@ -27,7 +24,12 @@ int main() {
     GLFWwindow* window = p3d::init();
      // you can name your shader files however you like
 
-    p3d::render(window);
+    PawnFactory* pawnFactory = new PawnFactory();
+    Pawn* pawn = pawnFactory->CreatePawn();
+
+    delete pawnFactory;
+
+    p3d::render(window, pawn);
 
     glfwTerminate();
     return 0;
@@ -45,7 +47,7 @@ void p3d::renderBackground(float* rgba)
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void p3d::render(GLFWwindow* window) {
+void p3d::render(GLFWwindow* window, Pawn* pawn) {
     
     float rgba[] = {0.2f, 0.2f, 0.3f, 1.0f};
     float* rgba_ptr = rgba;
@@ -62,7 +64,7 @@ void p3d::render(GLFWwindow* window) {
         // TODO: Create GetComponent in Pawn
         // GetComponent Mesh
         // Attach shader class to Mesh so that it doesn't have to pass it through
-        triangle->render(*shader);
+        pawn->GetMesh()->render();
 
         glfwSwapBuffers(window);
         
