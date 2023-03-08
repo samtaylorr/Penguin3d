@@ -19,19 +19,26 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Draw.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="GenericList.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Exceptions.cpp" />
     <ClCompile Include="glad.cpp" />
     <ClCompile Include="inputHandler.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Pawn.cpp" />
+    <ClCompile Include="PawnFactory.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Draw.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="inputHandler.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="Pawn.h" />
+    <ClInclude Include="PawnFactory.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
   </ItemGroup>

@@ -1,5 +1,5 @@
 #pragma once
-#include "Draw.h"
+#include "Mesh.h"
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -8,7 +8,7 @@
 #include "Shader.h"
 #include "stb_image.h"
 
-p3d::Polygon::Polygon(std::vector<float> v, std::vector<GLuint> i, Shader shader, std::string filePath) {
+p3d::Mesh::Mesh(std::vector<float> v, std::vector<GLuint> i, Shader shader, std::string filePath) {
 	this->color = color;
 
 	glGenVertexArrays(1, &VAO);
@@ -49,7 +49,7 @@ p3d::Polygon::Polygon(std::vector<float> v, std::vector<GLuint> i, Shader shader
 	shader.setInt("texture2", 1);
 }
 
-void p3d::Polygon::Texture(std::string path, GLuint *textureVar, bool flipVertical, bool alpha)
+void p3d::Mesh::Texture(std::string path, GLuint *textureVar, bool flipVertical, bool alpha)
 {
 	int width, height, nrChannels;
 
@@ -88,7 +88,7 @@ void p3d::Polygon::Texture(std::string path, GLuint *textureVar, bool flipVertic
 	stbi_image_free(data);
 }
 
-void p3d::Polygon::render(Shader shader) {
+void p3d::Mesh::render(Shader shader) {
 	// bind textures on corresponding texture units
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture1);

@@ -1,17 +1,21 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <vector>
+#include <array>
 #include <iostream>
 #include "Main.h"
 #include "inputHandler.h"
 #include "Exceptions.h"
-#include "Draw.h"
+#include "Mesh.h"
 #include "Shader.h"
-#include <vector>
-#include <array>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 using namespace p3d;
 
-p3d::Polygon* triangle;
+p3d::Mesh* triangle;
 
 Shader* shader;
 
@@ -22,31 +26,10 @@ const unsigned int SCR_HEIGHT = 600;
 int main() {
     GLFWwindow* window = p3d::init();
      // you can name your shader files however you like
-    shader = new Shader("vertex_shader.glsl", "fragment_shader.glsl");
-
-    std::vector<float>* vertices = new std::vector<float>{
-         // positions           // colors             // tex_coordinates
-         0.9f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f,     0.0f, 1.0f,          // bottom right
-        -0.9f, -0.5f, 0.0f,     0.0f, 1.0f, 0.0f,     0.0f, 0.0f,          // bottom left
-        -0.9f,  0.5f, 0.0f,     0.0f, 0.0f, 1.0f,     1.0f, 0.0f,          // top left
-         0.9f,  0.5f, 0.0f,     0.0f, 1.0f, 1.0f,     1.0f, 1.0f           // top right
-    };
-
-    std::vector<GLuint>* indices = new std::vector<GLuint>{
-        2, 3, 0,
-        0, 1, 2,
-    };
-
-    triangle = new p3d::Polygon(*vertices, *indices, *shader, "./textures/wall.jpg");
 
     p3d::render(window);
 
-    delete triangle;
-    delete vertices;
-    delete indices;
-
     glfwTerminate();
-    delete shader;
     return 0;
 }
 
@@ -74,6 +57,11 @@ void p3d::render(GLFWwindow* window) {
 
         // rendering events
         p3d::renderBackground(rgba_ptr);
+
+        // this currently throws an error
+        // TODO: Create GetComponent in Pawn
+        // GetComponent Mesh
+        // Attach shader class to Mesh so that it doesn't have to pass it through
         triangle->render(*shader);
 
         glfwSwapBuffers(window);
