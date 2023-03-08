@@ -22,5 +22,14 @@ namespace p3d {
         Mesh* GetMesh() {
             return components.mesh;
         }
+
+        void AddTransform(Transform* t)
+        {
+            components.transform = t;
+        }
+
+        Transform* GetTransform() {
+            return components.transform;
+        }
     };
 }

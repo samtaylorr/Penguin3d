@@ -2,6 +2,7 @@
 namespace p3d {
 	class Transform
 	{
-		Transform() = default;
+	public:
+		Transform();
 	}; 
 }

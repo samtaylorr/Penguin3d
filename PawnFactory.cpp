@@ -1,11 +1,14 @@
 #include "PawnFactory.h"
 #include "Shader.h"
 #include "Mesh.h"
+#include "Transform.h"
+
 using namespace p3d;
 
 Pawn* p3d::PawnFactory::CreatePawn() {
 	Pawn *pawn = new Pawn();
     Shader* shader = new Shader("vertex_shader.glsl", "fragment_shader.glsl");
+    Transform* transform = new Transform();
 
     std::vector<float>* vertices = new std::vector<float>{
         // positions           // colors             // tex_coordinates
@@ -22,6 +25,7 @@ Pawn* p3d::PawnFactory::CreatePawn() {
 
     p3d::Mesh* mesh = new p3d::Mesh(*vertices, *indices, *shader, "./textures/wall.jpg");
 	pawn->AddMesh(mesh);
+    pawn->AddTransform(transform);
 
 	return pawn;
 }
